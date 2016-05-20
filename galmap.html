@@ -1,0 +1,97 @@
+<html>
+  <head>
+    <title>GalMap (tm)</title>
+    <link href='https://fonts.googleapis.com/css?family=Orbitron' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/page.css">
+    <link rel="stylesheet" type="text/css" href="css/infotab.css">
+  </head>
+  <body class="page">
+    <script src="Hexagon.js/hexagon.js"></script>
+    <script src="src/stars.js"></script>
+    <script src='pixi.js/bin/pixi.js'></script>
+    <div>
+      <div class="infotab" id="system info">
+        <form name="infotab" id="infotab_data">
+          <input name="infotab_name" class="infotab_heading" value="Title" />
+          <div class="infotab_body" id="infotab_body">
+            
+            <div class="infotab_subheading">Astronomics</div>
+            <div class="infotab_section">
+
+              <div class="infotab_field">
+                <div class="infotab_label">Size Class</div>
+                <input class="infotab_input" name="size" />
+              </div>
+              
+              <div class="infotab_field">
+                <div class="infotab_label">Temperature Class</div>
+                <input class="infotab_input" name="temperature" />
+              </div>
+              
+              <div class="infotab_field">
+                <div class="infotab_label">Atmosphere Class</div>
+                <input class="infotab_input" name="atmopshere" />
+              </div>
+
+              <div class="infotab_field">
+                <div class="infotab_label">Biosphere Class</div>
+                <input class="infotab_input" name="biospshere" />
+              </div>
+
+            </div>
+
+            <div class="infotab_subheading">Demographics</div>
+            <div class="infotab_section">
+              
+              <div class="infotab_field">
+                <div class="infotab_label">Tech Level</div>
+                <input class="infotab_input" name="tech_level" />
+              </div>
+
+              <div class="infotab_field">
+                <div class="infotab_label">Population</div>
+                <input class="infotab_input" name="population" />
+              </div>
+
+              <div class="infotab_field">
+                <div class="infotab_label">Factions</div>
+                <input class="infotab_input" name="factions" />
+              </div>
+            </div>
+
+            <div class="infotab_subheading">Misc</div>
+            <div class="infotab_section">
+
+              <div class="infotab_field">
+                <div class="infotab_label">System Tags</div>
+                <input class="infotab_input" name="tag_1" />
+              </div>
+            
+              <div class="infotab_field">
+                <div class="infotab_label" >></div>
+                <input class="infotab_input" name="tag_2" />
+              </div>
+            
+              <div class="infotab_field">
+                <div class="infotab_label">Notes</div>
+                <input class="infotab_input" type="multiline" name="notes" />
+              </div>
+            </div>
+
+            <div class="infotab_section">
+              <div class="infotab_save">
+                Update Records
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div id="map" class="map">
+      </div>
+    </div>
+    <div>
+      <div class="button" id="Advance"></div>
+      <div class="button" id="Edit"></div>
+    </div>
+  </body>
+</html>
