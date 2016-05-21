@@ -9,4 +9,45 @@ body {
 .viewport {
   width: 100%;
   height: 100%;
-} 
+}
+
+.map {
+  width:1000px;
+  height:1000px;
+  margin:0 auto;
+}
+
+.control_bar {
+  width:100%;
+  height:3em;
+  background-color: #2c3e50;
+}
+
+
+.red {
+  border-color: #e74c3c;
+  background-color: #c0392b;
+}
+
+.green {
+  border-color: #2ecc71;
+  background-color: #27ae60;
+}
+
+.grey {
+  border-color: #ecf0f1;
+  background-color: #bdc3c7;
+}
+
+.button {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: strong;
+  float:left;
+  width: auto;
+  height:1.5em;
+  border:solid;
+  border-width: 0.1em;
+  color: #2c3e50;
+  margin: 0.2em;
+  padding: 0.2em;
+}

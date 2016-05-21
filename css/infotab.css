@@ -1,6 +1,6 @@
 .infotab {
   width: 30em;
-  height: 40em;
+  height: 45em;
   padding:0.2em;
   background-color: #7f8c8d;
   font-family: 'Orbitron', sans-serif;
@@ -25,7 +25,7 @@
 
 .infotab_body {
   width:24.6em;
-  height: 30em;
+  height: 35em;
   overflow-y:auto;
   overflow-x:hidden;
   background-color: #bdc3c7;
@@ -68,7 +68,7 @@
   border: none;
 }
 
-.infotab_save {
+.infotab_button {
   width:10em;
   height:1.5em;
   padding-left:0.5em;
@@ -76,8 +76,28 @@
   font-weight:strong;
   font-family: 'Orbitron', sans-serif;
   font-size:18pt;
-  background-color:#27ae60;
   border: solid;
-  border-color: #16a085;
   vertical-align: center;
+}
+
+.infotab_small_button {
+  width:10em;
+  height:1.5em;
+  padding-left:0.5em;
+  margin:1em;
+  font-weight:strong;
+  font-family: 'Orbitron', sans-serif;
+  font-size:18pt;
+  border: solid;
+  vertical-align: center;
+  float: left;
+}
+
+.infotab_obv_input {
+  float:left;
+  height: 1.2em;
+  width: 8em;
+  vertical-align: center;
+  border: none;
+  background-color: #95a5a6;
 }

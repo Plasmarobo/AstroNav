@@ -6,10 +6,30 @@
     <link rel="stylesheet" type="text/css" href="css/infotab.css">
   </head>
   <body class="page">
+    <script src="src/engine.js"></script>
     <script src="Hexagon.js/hexagon.js"></script>
+    <script src="src/names.js"></script>
     <script src="src/stars.js"></script>
-    <script src='pixi.js/bin/pixi.js'></script>
+    <script src="src/planet.js"></script>
+    <script src="src/system.js"></script>
+    <script src="src/sectors.js"></script>
+    <script src="src/views.js"></script>
+    <script src="src/controls.js"></script>
+    <script src="src/dialog.js"></script>
+    
     <div>
+      <div class="control_bar" id="control_bar">
+        <div id="system_controls">
+          <div class="red button" id="return_button">Back</div>
+          <div class="green button" id="new_button">New</div>
+          <div class="red button" id="clear_button">Clear</div>
+          <div class="green button" id="planet_button">Add Planet</div>
+          <div class="grey button" id="info_button">InfoTab</div>
+          <div class="grey button" id="hide_info_button">Hide InfoTab</div>
+        </div>
+        <div id="sector_controls">
+        </div>
+      </div>
       <div class="infotab" id="system info">
         <form name="infotab" id="infotab_data">
           <input name="infotab_name" class="infotab_heading" value="Title" />
@@ -37,7 +57,6 @@
                 <div class="infotab_label">Biosphere Class</div>
                 <input class="infotab_input" name="biospshere" />
               </div>
-
             </div>
 
             <div class="infotab_subheading">Demographics</div>
@@ -79,15 +98,31 @@
             </div>
 
             <div class="infotab_section">
-              <div class="infotab_save">
+              <div class="infotab_button green" id="infotab_save">
                 Update Records
+              </div>
+              <div class="infotab_button red" id="infotab_delete">
+                Delete Record
               </div>
             </div>
           </div>
         </form>
       </div>
-      <div id="map" class="map">
+      <div class="infotab" id="dialog">
+        <div class="infotab_heading" id="dialog_title">No Title</div>
+        <div class="infotab_body" id="dialog_body">
+
+        </div>
+        </div>
       </div>
+      <div id="map" class="map">
+        <canvas id="SectorCanvas" width="1000" height="1000"></canvas>
+        <canvas id="SystemCanvas" width="1000" height="1000"></canvas>
+      </div>
+      <script type="text/javascript">
+        initializeViews();
+        enableControls();
+      </script>
     </div>
     <div>
       <div class="button" id="Advance"></div>
