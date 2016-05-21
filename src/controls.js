@@ -1,6 +1,7 @@
 // controls.js
 function enableControls() {
   document.getElementById("return_button").addEventListener("click", function(){
+    currentSystem = null;
     globalSector.draw();
     showSectorView();
   });
@@ -16,7 +17,9 @@ function enableControls() {
       if (data.hasOwnProperty("dialog_name")) {
         // Create and save a system
         if (currentSystem != null) {
-          globalSector.newSystem(currentSystem.x, currentSystem.y, systemname);
+          globalSector.newSystem(currentSystem.x, currentSystem.y, data["dialog_name"]);
+          currentSystem = globalSector.getSystem(currentSystem.x, currentSystem.y);
+          currentSystem.draw(systemcontext);
         }
       }
     };
@@ -43,9 +46,7 @@ function enableControls() {
       if (success && data.hasOwnProperty("count")) {
         var names = globalSector.systemNames.getPlanetNames(currentSystem.name);
         for(var i = 0; i < parseInt(data["count"]); ++i) {
-          var planet = new Planet();
-          planet.name = names[i];
-          currentSystem.newPlanet(planet);
+          currentSystem.newPlanet(names[i]);
         }
       }
     };
@@ -53,12 +54,12 @@ function enableControls() {
   });
   document.getElementById("info_button").addEventListener("click", function() {
     // Show/hide infotab
-    if (infotab.style.visibility == "visible") {
-      infotab.style.visibility = "hidden";
-      hide_infotab.style.visibility = "visible";
+    if (infotab.style.display == "block") {
+      infotab.style.display = "none";
+      hide_infotab.style.display = "block";
     } else {
-      infotab.style.visibility = "visible";
-      hide_infotab.style.visibility = "hidden";
+      infotab.style.display = "block";
+      hide_infotab.style.display = "none";
     }
   });
 }

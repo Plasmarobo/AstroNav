@@ -6,11 +6,10 @@ function StellarSector(canvasId) {
   this.starIcon = new Image();
   this.starIcon.src = "assets/sector_star.png";
 
-  this.context = document.getElementById(canvasId).getContext('2d');
+  this.canvasId = canvasId;
 
   this.sectorWidth = 11;
   this.sectorHeight = 10;
-  this.padding = 50;
   this.cellSize = 50;
   this.background = new Image();
 
@@ -29,7 +28,7 @@ function StellarSector(canvasId) {
     sector.draw();
   }
 
-  this.background.src = "assets/background.png";
+  this.background.src = "assets/galaxy.png";
 
   this.systemNames = new NameGenerator(12);
 
@@ -50,7 +49,11 @@ StellarSector.prototype.advance = function(days) {
 }
 
 StellarSector.prototype.draw = function() {
-  this.context.drawImage(this.background, 0,0);
+  var context = document.getElementById(this.canvasId).getContext('2d');
+  context.clearRect(0,0, context.width, context.height);
+  var backgroundX = (sectorcanvas.width/2) - (this.background.width/2);
+  var backgroundY = (sectorcanvas.height/2) - (this.background.height/2);
+  context.drawImage(this.background, backgroundX,backgroundY);
   for(var system in this.systems) {
     system = this.systems[system];
     if (system.name != "Deep Space") {
@@ -58,22 +61,25 @@ StellarSector.prototype.draw = function() {
     }
   }
 
+  var left_padding = (sectorcanvas.width/2) - (this.systemGrid.getWidth(this.sectorWidth)/2);
+  var top_padding = (sectorcanvas.height/2) - (this.systemGrid.getHeight(this.sectorHeight)/2);
+
   this.systemGrid.drawHexGrid(this.sectorHeight,
                               this.sectorWidth,
-                              this.padding,
-                              this.padding,
+                              left_padding,
+                              top_padding,
                               true);
 }
 
 StellarSector.prototype.newSystem = function(x, y, name) {
   var system = this.getSystem(x, y);
-  system.type = name;
+  system.name = name;
   this.setSystem(x, y, system);
   this.draw();
 }
 
-StellarSector.prototype.setSystem = function(x, y, star) {
-  this.systems[x + "," + y] = star;
+StellarSector.prototype.setSystem = function(x, y, system) {
+  this.systems[x + "," + y] = system;
   this.draw();
 }
 

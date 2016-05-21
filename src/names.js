@@ -114,11 +114,11 @@ NameGenerator.prototype.getPlanetNames = function(star) {
       this.planet_names.splice(index, 1);
     } else {
       if (name_type == this.roman) {
-        planets.push(this.roman_numbers[i]);
+        planets.push(star + " " + this.roman_numbers[i]);
       } else if (name_type == this.greek) {
-        planets.push(this.greek_numbers[i]);
+        planets.push(star + " " + this.greek_numbers[i]);
       } else {
-        planets.push(this.numbers[i]);
+        planets.push(star + " " + this.numbers[i]);
       }
     }
   }

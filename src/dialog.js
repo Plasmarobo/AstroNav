@@ -84,8 +84,9 @@ Dialog.prototype.addSubmit = function (text) {
     dia.result = true;
     dia.close();
     var output = {};
-    for(var input in this.inputs) {
-      output[input.name] = input.value;
+    for(var input in dia.inputs) {
+      input = dia.inputs[input];
+      output[input.id] = input.value;
     }
     if (typeof dia.onResult != 'undefined')
       dia.onResult(dia.result, output);
@@ -94,15 +95,21 @@ Dialog.prototype.addSubmit = function (text) {
 }
 
 Dialog.prototype.show = function () {
+  var dialog = document.getElementById("dialog");
+  dialog.style.width = 500;
+  dialog.style.height = 400;
+  dialog.style.marginLeft = -250;
+  dialog.style.top = 300;
+
   if (this.sections.length > 0) {
     for(var section in this.sections) {
       document.getElementById(this.id + "_body").appendChild(this.sections[section]);
     }
-    document.getElementById(this.id).style.visibility = "visible";
+    document.getElementById(this.id).style.display = "block";
   }
 }
 
 Dialog.prototype.close = function() {
   document.getElementById(this.id + "_body").innerHTML = "";
-  document.getElementById(this.id).style.visibility = "hidden";
+  document.getElementById(this.id).style.display = "none";
 }

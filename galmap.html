@@ -23,72 +23,78 @@
           <div class="red button" id="return_button">Back</div>
           <div class="green button" id="new_button">New</div>
           <div class="red button" id="clear_button">Clear</div>
-          <div class="green button" id="planet_button">Add Planet</div>
+          <div class="green button" id="planet_button">Add Planets</div>
           <div class="grey button" id="info_button">InfoTab</div>
           <div class="grey button" id="hide_info_button">Hide InfoTab</div>
         </div>
         <div id="sector_controls">
+          <div class="grey button" id="advance_button">Advance</div>
+          <div class="grey button" id="edit_button">Edit</div>
         </div>
       </div>
-      <div class="infotab" id="system info">
+      <div id="map" class="map">
+        <canvas id="SectorCanvas"></canvas>
+        <canvas id="SystemCanvas"></canvas>
+      </div>
+      <div class="infotab" id="infotab">
         <form name="infotab" id="infotab_data">
-          <input name="infotab_name" class="infotab_heading" value="Title" />
+          <input id="infotab_title" name="infotab_name" class="infotab_heading" value="Title" />
           <div class="infotab_body" id="infotab_body">
             
-            <div class="infotab_subheading">Astronomics</div>
+            
             <div class="infotab_section">
-
+              <div class="infotab_subheading">Astronomics</div>
               <div class="infotab_field">
                 <div class="infotab_label">Size Class</div>
-                <input class="infotab_input" name="size" />
+                <input class="infotab_input" name="size" id="infotab_size" />
               </div>
               
               <div class="infotab_field">
                 <div class="infotab_label">Temperature Class</div>
-                <input class="infotab_input" name="temperature" />
+                <input class="infotab_input" name="temperature" id="infotab_temperature" />
               </div>
               
               <div class="infotab_field">
                 <div class="infotab_label">Atmosphere Class</div>
-                <input class="infotab_input" name="atmopshere" />
+                <input class="infotab_input" name="atmopshere" id="infotab_atmosphere" />
               </div>
 
               <div class="infotab_field">
                 <div class="infotab_label">Biosphere Class</div>
-                <input class="infotab_input" name="biospshere" />
+                <input class="infotab_input" name="biospshere" id="infotab_biosphere" />
               </div>
             </div>
 
-            <div class="infotab_subheading">Demographics</div>
+            
             <div class="infotab_section">
-              
+              <div class="infotab_subheading">Demographics</div>
               <div class="infotab_field">
                 <div class="infotab_label">Tech Level</div>
-                <input class="infotab_input" name="tech_level" />
+                <input class="infotab_input" name="tech_level" id="intotab_techlevel" />
               </div>
 
               <div class="infotab_field">
                 <div class="infotab_label">Population</div>
-                <input class="infotab_input" name="population" />
+                <input class="infotab_input" name="population" id="infotab_population" />
               </div>
 
               <div class="infotab_field">
                 <div class="infotab_label">Factions</div>
-                <input class="infotab_input" name="factions" />
+                <input class="infotab_input" name="factions" id="infotab_factions" />
               </div>
             </div>
 
-            <div class="infotab_subheading">Misc</div>
+            
             <div class="infotab_section">
-
+              <div class="infotab_subheading">Misc</div>
               <div class="infotab_field">
                 <div class="infotab_label">System Tags</div>
-                <input class="infotab_input" name="tag_1" />
+                <input class="infotab_input" name="tag_1" id="infotab_tag1" />
               </div>
             
               <div class="infotab_field">
                 <div class="infotab_label" >></div>
-                <input class="infotab_input" name="tag_2" />
+                <input class="infotab_input" name="tag_2" id="infotab_tag2" />
               </div>
             
               <div class="infotab_field">
@@ -97,14 +103,14 @@
               </div>
             </div>
 
-            <div class="infotab_section">
+          
               <div class="infotab_button green" id="infotab_save">
                 Update Records
               </div>
               <div class="infotab_button red" id="infotab_delete">
                 Delete Record
               </div>
-            </div>
+            
           </div>
         </form>
       </div>
@@ -115,18 +121,10 @@
         </div>
         </div>
       </div>
-      <div id="map" class="map">
-        <canvas id="SectorCanvas" width="1000" height="1000"></canvas>
-        <canvas id="SystemCanvas" width="1000" height="1000"></canvas>
-      </div>
       <script type="text/javascript">
         initializeViews();
         enableControls();
       </script>
-    </div>
-    <div>
-      <div class="button" id="Advance"></div>
-      <div class="button" id="Edit"></div>
     </div>
   </body>
 </html>
