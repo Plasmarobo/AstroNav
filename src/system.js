@@ -3,8 +3,7 @@ function StellarSystem() {
   this.name = "Deep Space";
   this.planets = [];
   this.others = [];
-  this.star = new Star(); 
-  this.starSize = 256;
+  this.star = new Star();
   this.x = 0;
   this.y = 0;
 }
@@ -70,6 +69,10 @@ StellarSystem.prototype.updatePlanet = function(index, info) {
   this.draw(systemcontext);
 }
 
+StellarSystem.prototype.clearPlanets = function() {
+  this.planets = [];
+}
+
 StellarSystem.prototype.newOther = function(drawable) {
   this.others.push(drawable);
   this.draw(systemcontext);
@@ -108,4 +111,24 @@ StellarSystem.prototype.click = function(x, y) {
   if (this.star.click(x, y)) {
     return;
   }
+}
+
+StellarSystem.prototype.loadFrom = function(tree) {
+  this.name = tree["name"];
+  this.planets = [];
+  for (var planet in tree["planets"]) {
+    var item = new Planet();
+    item.loadFrom(tree["planets"][planet]);
+    this.planets.push(item);
+  }
+  this.others = [];
+  for (var other in tree["others"]) {
+    var item = new Fixed();
+    item.loadFrom(tree["others"][other]);
+    this.others.push(item);
+  }
+  this.star.loadFrom(tree["star"]);
+  this.starSize = 256;
+  this.x = tree["x"];
+  this.y = tree["y"];
 }

@@ -16,6 +16,7 @@
     <script src="src/views.js"></script>
     <script src="src/controls.js"></script>
     <script src="src/dialog.js"></script>
+    <script src="src/io.js"></script>
     
     <div>
       <div class="control_bar" id="control_bar">
@@ -24,12 +25,16 @@
           <div class="green button" id="new_button">New</div>
           <div class="red button" id="clear_button">Clear</div>
           <div class="green button" id="planet_button">Add Planets</div>
+          <div class="red button" id="clear_planet_button">Clear Planets</div>
           <div class="grey button" id="info_button">InfoTab</div>
           <div class="grey button" id="hide_info_button">Hide InfoTab</div>
         </div>
         <div id="sector_controls">
           <div class="grey button" id="advance_button">Advance</div>
           <div class="grey button" id="edit_button">Edit</div>
+          <div class="grey button" id="save_button">Save</div>
+          <div class="grey button" id="load_button">Load</div>
+          <div class="grey button" id="export_button">Export</div>
         </div>
       </div>
       <div id="map" class="map">
@@ -40,7 +45,6 @@
         <form name="infotab" id="infotab_data">
           <input id="infotab_title" name="infotab_name" class="infotab_heading" value="Title" />
           <div class="infotab_body" id="infotab_body">
-            
             
             <div class="infotab_section">
               <div class="infotab_subheading">Astronomics</div>
@@ -70,7 +74,7 @@
               <div class="infotab_subheading">Demographics</div>
               <div class="infotab_field">
                 <div class="infotab_label">Tech Level</div>
-                <input class="infotab_input" name="tech_level" id="intotab_techlevel" />
+                <input class="infotab_input" name="tech_level" id="infotab_techlevel" />
               </div>
 
               <div class="infotab_field">
@@ -99,16 +103,16 @@
             
               <div class="infotab_field">
                 <div class="infotab_label">Notes</div>
-                <input class="infotab_input" type="multiline" name="notes" />
+                <input class="infotab_input" type="multiline" name="notes" id="infotab_notes" />
               </div>
             </div>
 
           
-              <div class="infotab_button green" id="infotab_save">
-                Update Records
+              <div class="infotab_button green" id="infotab_commit">
+                Update Record
               </div>
-              <div class="infotab_button red" id="infotab_delete">
-                Delete Record
+              <div class="infotab_button red" id="infotab_discard">
+                Discard Cahnges
               </div>
             
           </div>

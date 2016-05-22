@@ -124,3 +124,11 @@ NameGenerator.prototype.getPlanetNames = function(star) {
   }
   return planets;
 }
+
+NameGenerator.prototype.loadFrom = function(tree) {
+
+  this.planet_names = tree["planet_names"];
+
+  this.starnames = tree["starnames"];
+  this.planetnames = tree["planetnames"];
+}

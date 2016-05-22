@@ -2,8 +2,11 @@
 function enableControls() {
   document.getElementById("return_button").addEventListener("click", function(){
     currentSystem = null;
+    infotabTarget = null;
+    document.getElementById("infotab_title").value = "No Target";
     globalSector.draw();
     showSectorView();
+    animationCallback = null;
   });
   document.getElementById("new_button").addEventListener("click", function(){
 
@@ -27,7 +30,8 @@ function enableControls() {
   });
   document.getElementById("clear_button").addEventListener("click", function(){
     var dialog = new Dialog();
-    dialog.title = "Really Delete " + currentSystem.name + "?";
+    dialog.addTitle("Really Delete " + currentSystem.name + "?");
+    dialog.addSection();
     dialog.addYesNo();
     dialog.onResult = function(success) {
       if (success) {
@@ -38,7 +42,7 @@ function enableControls() {
   });
   document.getElementById("planet_button").addEventListener("click", function() {
     var dialog = new Dialog();
-    dialog.title = "New Planets";
+    dialog.addTitle("New Planets");
     dialog.addSection();
     dialog.addField("count", "Count");
     dialog.addSubmit();
@@ -52,6 +56,39 @@ function enableControls() {
     };
     dialog.show();
   });
+  document.getElementById("clear_planet_button").addEventListener("click", function() {
+    var dialog = new Dialog();
+    dialog.addTitle("Clear Planets?");
+    dialog.addSection();
+    dialog.addYesNo();
+    dialog.onResult = function(success) {
+      if (success) {
+        currentSystem.clearPlanets();
+      }
+    }
+  });
+  document.getElementById("infotab_commit").addEventListener("click", function() {
+    var dialog = new Dialog();
+    dialog.addTitle("Really Commit?");
+    dialog.addSection();
+    dialog.addYesNo();
+    dialog.onResult = function(success) {
+      if (success) {
+        // Scan infotab and updates
+      }
+    }
+  });
+  document.getElementById("infotab_discard").addEventListener("click", function() {
+    var dialog = new Dialog();
+    dialog.addTitle("Toss Changes?");
+    dialog.addSection();
+    dialog.addYesNo();
+    dialog.onResult = function(success) {
+      if (success) {
+        loadInfotab(infotabTarget);
+      }
+    }
+  });
   document.getElementById("info_button").addEventListener("click", function() {
     // Show/hide infotab
     if (infotab.style.display == "block") {
@@ -61,5 +98,15 @@ function enableControls() {
       infotab.style.display = "block";
       hide_infotab.style.display = "none";
     }
+  });
+  document.getElementById("save_button").addEventListener("click", function() {
+    saveJSON("sector", getSectorJSON(globalSector));
+  });
+  document.getElementById("load_button").addEventListener("click", function() {
+    globalSector.loadFrom(loadJSON("sector"));
+    showSectorView();
+  });
+  document.getElementById("export_button").addEventListener("click", function() {
+    exportJSON(globalSector);
   });
 }

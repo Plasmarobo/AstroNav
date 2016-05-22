@@ -30,7 +30,16 @@ Star.prototype.click = function(x, y) {
     document.getElementById("infotab_tag1").value = "N/A";
     document.getElementById("infotab_tag2").value = "N/A";
     document.getElementById("infotab_notes").value = "";
+    infotabTarget = this;
     return true;
   }
   return false;
+}
+
+Star.prototype.loadFrom = function(tree) {
+  this.x = tree["x"];
+  this.y = tree["y"];
+  this.size = tree["size"];
+  this.scale = tree["scale"];
+  this.temperature = tree["temperature"];
 }

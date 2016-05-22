@@ -36,58 +36,12 @@ function Planet() {
   this.orbitalAngle = 0;
   this.orbitAnchorX = 0;
   this.orbitAnchorY = 0;
+  this.typeIndex = getRandomInt(0, 10);
 
   this.name = "";
 }
 
 Planet.prototype.draw = function(ctx) {
-  var typeIndex;
-  if (this.atmosphere > 4 && this.atmosphere < 10) {
-    //Any
-    if (this.temperature == 2) {
-      typeIndex = this.ice;
-    }
-    else if (this.temperature == 3) {
-      typeIndex = this.earthAlikes;
-    }
-    else if (this.temperature == 4 || this.temperature == 5) {
-      typeIndex = this.ice;
-    }
-    else if (this.temperature > 5 || this.temperature < 9) {
-      var roll = getRandomInt(0, 3);
-      if (roll == 0) {
-        typeIndex = this.earthAlikes;
-      } else if (roll == 1) {
-        typeIndex = this.jungle;
-      } else {
-        typeIndex = this.ocean;
-      }
-    }
-    else if (this.temperature > 8 && this.temperature < 12) {
-      typeIndex = this.desert;
-    } else {
-      var roll = getRandomInt(0,2);
-      if (roll == 0) {
-        typeIndex = this.inferno;
-      } else {
-        typeIndex = this.rock;
-      }
-    }
-  } else if (this.atmosphere == 2 || this.atmosphere > 10) {
-    typeIndex = this.toxic;
-  } else if (this.atmosphere == 10) {
-    var roll = getRandomInt(0,2);
-    if (roll == 0) {
-      typeIndex = this.darkGiant;
-    } else {
-      typeIndex = this.gas;
-    }
-  } else if (this.atmosphere == 4) {
-    typeIndex = this.rock;
-  } else {
-    typeIndex = this.balls;
-  }
-
   //var radius = Math.sqrt(Math.pow(this.x - this.orbitAnchorX,2) + Math.pow(this.y - this.orbitAnchorY,2)); 
   ctx.beginPath();
   ctx.arc(this.orbitAnchorX, this.orbitAnchorY, this.orbitalDistance, 0, 2 * Math.PI, false);
@@ -98,7 +52,7 @@ Planet.prototype.draw = function(ctx) {
 
   ctx.drawImage(this.sourceImage,
                 this.imageIndex * 32,
-                typeIndex * 32,
+                this.typeIndex * 32,
                 32,
                 32,
                 this.x - 16,
@@ -115,6 +69,7 @@ Planet.prototype.place = function(star, distance) {
   this.orbitalDistance = distance;
   this.orbitAnchorY = star.y;
   this.orbitAnchorX = star.x;
+  this.orbitalPeriod = 16 + this.orbitalDistance + getRandomInt(0, 320);
 }
 
 Planet.prototype.advance = function(days) {
@@ -125,27 +80,96 @@ Planet.prototype.advance = function(days) {
 }
 
 Planet.prototype.click = function(x, y) {
-  if ((x >= this.x) &&
-      (x <= this.x + 32) &&
-      (y >= this.y) &&
-      (y <= this.y + 32)) {
+  if ((x >= this.x-16) &&
+      (x <= this.x + 16) &&
+      (y >= this.y-16) &&
+      (y <= this.y + 16)) {
     // Load the infotab
-    document.getElementById("infotab_title").value = this.name;
-    document.getElementById("infotab_size").value = this.size;
-    document.getElementById("infotab_temperature").value = this.temperature;
-    document.getElementById("infotab_atmosphere").value = this.atmosphere;
-    document.getElementById("infotab_biosphere").value = this.biosphere;
-    document.getElementById("infotab_techlevel").value = this.tech_level;
-    document.getElementById("infotab_population").value = this.population;
-    document.getElementById("infotab_factions").value = "";
-    for(var faction in this.factions) {
-      document.getElementById("infotab_factions").value += faction + ",";
-    }
-    document.getElementById("infotab_tag1").value = this.tag_1;
-    document.getElementById("infotab_tag2").value = this.tag_2;
-    document.getElementById("infotab_notes").value = this.notes;
-
+   loadInfotab(this);
     return true;
   }
   return false;
+}
+
+Planet.prototype.update = function(data) {
+  for(var property in data) {
+    if (this.hasOwnProperty(property)) {
+      this[property] = data[property];
+    }
+  }
+
+  if (this.atmosphere > 4 && this.atmosphere < 10) {
+    //Any
+    if (this.temperature == 2) {
+      this.typeIndex = this.ice;
+    }
+    else if (this.temperature == 3) {
+      this.typeIndex = this.earthAlikes;
+    }
+    else if (this.temperature == 4 || this.temperature == 5) {
+      this.typeIndex = this.ice;
+    }
+    else if (this.temperature > 5 || this.temperature < 9) {
+      var roll = getRandomInt(0, 3);
+      if (roll == 0) {
+        this.typeIndex = this.earthAlikes;
+      } else if (roll == 1) {
+        this.typeIndex = this.jungle;
+      } else {
+        this.typeIndex = this.ocean;
+      }
+    }
+    else if (this.temperature > 8 && this.temperature < 12) {
+      this.typeIndex = this.desert;
+    } else {
+      var roll = getRandomInt(0,2);
+      if (roll == 0) {
+        this.typeIndex = this.inferno;
+      } else {
+        this.typeIndex = this.rock;
+      }
+    }
+  } else if (this.atmosphere == 2 || this.atmosphere > 10) {
+    this.typeIndex = this.toxic;
+  } else if (this.atmosphere == 10) {
+    var roll = getRandomInt(0,2);
+    if (roll == 0) {
+      this.typeIndex = this.darkGiant;
+    } else {
+      this.typeIndex = this.gas;
+    }
+  } else if (this.atmosphere == 4) {
+    this.typeIndex = this.rock;
+  } else {
+    this.typeIndex = getRandomInt(0, 10);
+  }
+}
+
+Planet.prototype.loadFrom = function(tree) {
+  this.nativeSize = tree["nativeSize"];
+ 
+  this.imageIndex = tree["imageIndex"] //0-5
+
+  this.size = tree["size"];
+  this.temperature = tree["temperature"];
+  this.atmosphere = tree["atmosphere"];
+  this.biosphere = tree["biosphere"];
+
+  this.population = tree["population"];
+  this.tech_level = tree["tech_level"];
+  this.tag_1 = tree["tag_1"];
+  this.tag_2 = tree["tag_2"];
+  this.notes = tree["notes"];
+  this.factions = tree["factions"];
+
+  //this.position = new Vector();
+  //In days
+  this.orbitalPeriod = tree["orbitalPeriod"];
+  this.orbitalDistance = tree["orbitalDistance"];
+  this.orbitalAngle = tree["orbitalAngle"];
+  this.orbitAnchorX = tree["orbitAnchorX"];
+  this.orbitAnchorY = tree["orbitAnchorY"];
+  this.typeIndex = tree["typeIndex"];
+
+  this.name = tree["name"];
 }

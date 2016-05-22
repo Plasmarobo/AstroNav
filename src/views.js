@@ -6,9 +6,11 @@ var sectorcontext;
 var returnButton;
 var currentSystem = null;
 var globalSector = null;
+var infotabTarget = null;
 var infotab;
 var globalWidth;
 var globalHeight;
+var animationCallback = null;
 
 var sizingParameters = {
   "minViewport" : 530,
@@ -29,29 +31,6 @@ function initializeViews() {
   hide_infotab = document.getElementById("hide_info_button");
 
   document.getElementById("dialog").style.display = "none";
-  
-  (function() {
-    var throttle = function(type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function() {
-            if (running) { return; }
-            running = true;
-             requestAnimationFrame(function() {
-                if ((document.body.scrollWidth != globalWidth) ||
-                    (document.body.scrollHeight != globalHeight))
-                {
-                  obj.dispatchEvent(new CustomEvent(name));
-                }
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
-    };
-
-    /* init - you can init any event */
-    throttle("resize", "optimizedResize");
-  })();
 
   // handle event
   window.addEventListener("optimizedResize", function() {
@@ -59,6 +38,8 @@ function initializeViews() {
   });
 
   globalSector = new StellarSector("SectorCanvas");
+
+  initializeEngine();
 
   onResize();
 
@@ -92,30 +73,35 @@ function showSystemView() {
   infotab.style.display = "block";
 }
 
+var resizeThrottle;
+
 function onResize() {
-  globalWidth = document.body.scrollWidth;
-  globalHeight = document.body.scrollHeight-1;
+  clearTimeout(resizeThrottle);
+  resizeThrottle = setTimeout(function() {
+    globalWidth = document.body.scrollWidth;
+    globalHeight = document.body.scrollHeight-1;
 
-  var width = globalWidth;
-  var height = globalHeight;
-  // Top bar is always fixed size
-  height -= document.getElementById("control_bar").offsetHeight;
-  height -= sizingParameters["infotab"];
-  if (height < sizingParameters["minViewport"]) {
-    height = sizingParameters["minViewport"];
-  } 
-  if (width < sizingParameters["minViewport"]) {
-    width = sizingParameters["minViewport"];
-  }
+    var width = globalWidth;
+    var height = globalHeight;
+    // Top bar is always fixed size
+    height -= document.getElementById("control_bar").offsetHeight;
+    height -= sizingParameters["infotab"];
+    if (height < sizingParameters["minViewport"]) {
+      height = sizingParameters["minViewport"];
+    } 
+    if (width < sizingParameters["minViewport"]) {
+      width = sizingParameters["minViewport"];
+    }
 
-  setViewport(width, height);
+    setViewport(width, height);
 
-  document.getElementById("infotab").style.height = sizingParameters["infotab"];
-  
-  globalSector.draw();
-  if (currentSystem != null) {
-    currentSystem.draw();
-  }
+    document.getElementById("infotab").style.height = sizingParameters["infotab"];
+    
+    globalSector.draw();
+    if (currentSystem != null) {
+      currentSystem.draw(systemcontext);
+    }
+  },100);
 }
 
 function setViewport(width, height) {
@@ -131,4 +117,42 @@ function setViewport(width, height) {
   sectorcontext = sectorcanvas.getContext('2d');
   document.getElementById("map").style.height = height;
   document.getElementById("map").style.width = width;
+}
+
+function loadInfotab(target) {
+  infotabTarget = target;
+  document.getElementById("infotab_title").value = target.hasOwnProperty("name") ? target.name : "N/A";
+  document.getElementById("infotab_size").value = target.hasOwnProperty("size") ? target.size : "N/A"
+  document.getElementById("infotab_temperature").value = target.hasOwnProperty("temperature") ? target.temperature : "N/A";
+  document.getElementById("infotab_atmosphere").value = target.hasOwnProperty("atmosphere") ? target.atmosphere : "N/A";
+  document.getElementById("infotab_biosphere").value = target.hasOwnProperty("biosphere") ? target.biosphere : "N/A";
+  document.getElementById("infotab_techlevel").value = target.hasOwnProperty("tech_level") ? target.tech_level : "N/A";
+  document.getElementById("infotab_population").value = target.hasOwnProperty("population") ? target.population : "N/A";
+   document.getElementById("infotab_factions").value = "";
+  if (target.hasOwnProperty("factions")) {
+    for(var faction in this.factions) {
+      document.getElementById("infotab_factions").value += faction + ",";
+    }
+  } else {
+    document.getElementById("infotab_factions").value = "N/A";
+  }
+  document.getElementById("infotab_tag1").value = target.hasOwnProperty("tag_1") ? target.tag_1 : "N/A";
+  document.getElementById("infotab_tag2").value = target.hasOwnProperty("tag_2") ? target.tag_2 : "N/A";
+  document.getElementById("infotab_notes").value = target.hasOwnProperty("notes") ? target.notes : "N/A";
+}
+
+function saveInfotab() {
+  var data = {};
+  data["name"] = document.getElementById("infotab_title").value;
+  data["size"] = document.getElementById("infotab_size").value;
+  data["temperature"] = document.getElementById("infotab_temperature").value;
+  data["atmosphere"] = document.getElementById("infotab_atmosphere").value;
+  data["biosphere"] = document.getElementById("infotab_biosphere").value;
+  data["tech_level"] = document.getElementById("infotab_techlevel").value;
+  data["population"] = document.getElementById("infotab_population").value;
+  data["factions"] = document.getElementById("infotab_factions").value;
+  data["tag_1"] = document.getElementById("infotab_tag1").value;
+  data["tag_2"] = document.getElementById("infotab_tag2").value;
+  data["notes"] = document.getElementById("infotab_notes").value;
+  infotabTarget.update(data);
 }
