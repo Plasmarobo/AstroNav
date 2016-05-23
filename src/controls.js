@@ -75,8 +75,10 @@ function enableControls() {
     dialog.onResult = function(success) {
       if (success) {
         // Scan infotab and updates
+        saveInfotab();
       }
     }
+    dialog.show();
   });
   document.getElementById("infotab_discard").addEventListener("click", function() {
     var dialog = new Dialog();
@@ -88,6 +90,7 @@ function enableControls() {
         loadInfotab(infotabTarget);
       }
     }
+    dialog.show();
   });
   document.getElementById("info_button").addEventListener("click", function() {
     // Show/hide infotab

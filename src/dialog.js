@@ -58,7 +58,7 @@ Dialog.prototype.addYesNo = function (question) {
     dia.result = true;
     dia.close();
     if (typeof dia.onResult != 'undefined')
-      dia.onResult(result);
+      dia.onResult(dia.result);
   });
   this.sections[this.sections.length-1].appendChild(btn);
   btn = document.createElement('div');
@@ -68,7 +68,7 @@ Dialog.prototype.addYesNo = function (question) {
     dia.result = false;
     dia.close();
     if (typeof dia.onResult != 'undefined')
-      dia.onResult(result);
+      dia.onResult(dia.result);
   });
   this.sections[this.sections.length-1].appendChild(btn);
 }
