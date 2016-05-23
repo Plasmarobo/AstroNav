@@ -112,7 +112,7 @@ function enableControls() {
   document.getElementById("export_button").addEventListener("click", function() {
     exportJSON(globalSector);
   });
-  document.getElementById("edit_notes").addEventListener("click", function() {
+  document.getElementById("infotab_edit_notes").addEventListener("click", function() {
     var dialog = new Dialog();
     dialog.addTitle("Edit Notes");
     dialog.addSection();
@@ -120,7 +120,7 @@ function enableControls() {
     dialog.addSubmit();
     dialog.onResult = function(success, data) {
       if (success) {
-        document.getElementById("infotab_notes").value = data["target_notes"];
+        document.getElementById("infotab_notes").value = document.getElementById("target_notes").value;
       }
     }
     dialog.show();

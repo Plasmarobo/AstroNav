@@ -106,10 +106,3 @@
   background-color: #95a5a6;
   font-family: 'Orbitron', sans-serif;
 }
-
-.infotab_textarea {
-  overflow-y: auto;
-  overflow-x: none;
-  border: solid;
-  border-width: 1px;
-}

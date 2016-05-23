@@ -56,9 +56,9 @@ Dialog.prototype.addYesNo = function (question) {
   var dia = this;
   btn.addEventListener("click", function() {
     dia.result = true;
-    dia.close();
     if (typeof dia.onResult != 'undefined')
       dia.onResult(dia.result);
+    dia.close();
   });
   this.sections[this.sections.length-1].appendChild(btn);
   btn = document.createElement('div');
@@ -66,9 +66,9 @@ Dialog.prototype.addYesNo = function (question) {
   btn.innerHTML = "No";
   btn.addEventListener("click", function(){
     dia.result = false;
-    dia.close();
     if (typeof dia.onResult != 'undefined')
       dia.onResult(dia.result);
+    dia.close();
   });
   this.sections[this.sections.length-1].appendChild(btn);
 }
@@ -82,7 +82,6 @@ Dialog.prototype.addSubmit = function (text) {
   var dia = this;
   btn.addEventListener("click", function(){
     dia.result = true;
-    dia.close();
     var output = {};
     for(var input in dia.inputs) {
       input = dia.inputs[input];
@@ -90,6 +89,7 @@ Dialog.prototype.addSubmit = function (text) {
     }
     if (typeof dia.onResult != 'undefined')
       dia.onResult(dia.result, output);
+    dia.close();
   });
   this.sections[this.sections.length-1].appendChild(btn);
 }
@@ -97,7 +97,7 @@ Dialog.prototype.addSubmit = function (text) {
 Dialog.prototype.addTextArea = function(id, lines, text) {
   var area = document.createElement('textarea');
   area.rows = lines;
-  area.cols = 20;
+  area.cols = 50;
   area.className = "infotab_textarea";
   area.id = id;
   area.value = text;
@@ -108,7 +108,7 @@ Dialog.prototype.addTextArea = function(id, lines, text) {
 Dialog.prototype.show = function () {
   var dialog = document.getElementById("dialog");
   dialog.style.width = 500;
-  dialog.style.height = 400;
+  dialog.style.height = 600;
   dialog.style.marginLeft = -250;
   dialog.style.top = 300;
 
