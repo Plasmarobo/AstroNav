@@ -112,4 +112,17 @@ function enableControls() {
   document.getElementById("export_button").addEventListener("click", function() {
     exportJSON(globalSector);
   });
+  document.getElementById("edit_notes").addEventListener("click", function() {
+    var dialog = new Dialog();
+    dialog.addTitle("Edit Notes");
+    dialog.addSection();
+    dialog.addTextArea("target_notes", 20, infotabTarget.notes);
+    dialog.addSubmit();
+    dialog.onResult = function(success, data) {
+      if (success) {
+        document.getElementById("infotab_notes").value = data["target_notes"];
+      }
+    }
+    dialog.show();
+  })
 }

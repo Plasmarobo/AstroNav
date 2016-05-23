@@ -94,6 +94,17 @@ Dialog.prototype.addSubmit = function (text) {
   this.sections[this.sections.length-1].appendChild(btn);
 }
 
+Dialog.prototype.addTextArea = function(id, lines, text) {
+  var area = document.createElement('textarea');
+  area.rows = lines;
+  area.cols = 20;
+  area.className = "infotab_textarea";
+  area.id = id;
+  area.value = text;
+  this.inputs.push(area);
+  this.sections[this.sections.length-1].appendChild(area);
+}
+
 Dialog.prototype.show = function () {
   var dialog = document.getElementById("dialog");
   dialog.style.width = 500;

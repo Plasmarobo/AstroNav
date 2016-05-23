@@ -4,7 +4,7 @@ var currentSystem;
 
 function StellarSector(canvasId) {
   this.starIcon = new Image();
-  this.starIcon.src = "assets/sector_star.png";
+  this.starIcon.src = "assets/system.png";
 
   this.canvasId = canvasId;
 
