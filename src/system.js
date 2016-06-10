@@ -116,18 +116,23 @@ StellarSystem.prototype.click = function(x, y) {
 StellarSystem.prototype.loadFrom = function(tree) {
   this.name = tree["name"];
   this.planets = [];
+  
+  this.star.loadFrom(tree["star"]);
+  this.star.anchor(systemcontext);
+  
   for (var planet in tree["planets"]) {
     var item = new Planet();
     item.loadFrom(tree["planets"][planet]);
+    item.place(this.star, item.orbitalDistance);
     this.planets.push(item);
   }
+
   this.others = [];
   for (var other in tree["others"]) {
     var item = new Fixed();
     item.loadFrom(tree["others"][other]);
     this.others.push(item);
   }
-  this.star.loadFrom(tree["star"]);
   this.starSize = 256;
   this.x = tree["x"];
   this.y = tree["y"];

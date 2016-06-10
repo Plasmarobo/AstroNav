@@ -8,9 +8,13 @@ function Star() {
   this.temperature = 20;
 }
 
-Star.prototype.draw = function(ctx) {
+Star.prototype.anchor = function(ctx) {
   this.x = ctx.canvas.width/2;
   this.y = ctx.canvas.height/2;
+}
+
+Star.prototype.draw = function(ctx) {
+  this.anchor(ctx);
   ctx.drawImage(this.image, this.x - (this.image.width/2), this.y - (this.image.height/2)); 
 }
 

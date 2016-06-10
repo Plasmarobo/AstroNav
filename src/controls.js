@@ -106,11 +106,35 @@ function enableControls() {
     saveJSON("sector", getSectorJSON(globalSector));
   });
   document.getElementById("load_button").addEventListener("click", function() {
-    globalSector.loadFrom(loadJSON("sector"));
-    showSectorView();
+    var dialog = new Dialog();
+    dialog.addTitle("Load saved data and overwrite?");
+    dialog.addSection();
+    dialog.addYesNo();
+    dialog.onResult = function(success) {
+      if (success) {
+        globalSector.loadFrom(loadJSON("sector"));
+        showSectorView();
+      }
+    };
+    dialog.show();
   });
   document.getElementById("export_button").addEventListener("click", function() {
     exportJSON(globalSector);
+  });
+  
+  document.getElementById("import_button").addEventListener("click", function() {
+    var dialog = new Dialog();
+    dialog.addTitle("Import JSON");
+    dialog.addSection();
+    dialog.addTextArea("sector_json", 20, "");
+    dialog.addSubmit();
+    dialog.onResult = function(success, data) {
+      if (success) {
+        globalSector.loadFrom(document.getElementById("sector_json").value);
+        showSectorView();
+      }
+    };
+    dialog.show();
   });
   document.getElementById("infotab_edit_notes").addEventListener("click", function() {
     var dialog = new Dialog();

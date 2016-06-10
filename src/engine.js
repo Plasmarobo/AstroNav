@@ -16,8 +16,9 @@ function initializeEngine() {
 }
 
 function engineStep() {
-  if ((document.body.scrollWidth != globalWidth) ||
-      (document.body.scrollHeight != globalHeight))
+  if (((document.body.scrollWidth != globalWidth) ||
+      ((document.body.scrollHeight-1) != globalHeight)) &&
+      (resizeThrottle == null))
   {
     window.dispatchEvent(new CustomEvent("optimizedResize"));
   }

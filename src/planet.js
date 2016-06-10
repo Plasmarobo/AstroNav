@@ -72,6 +72,13 @@ Planet.prototype.place = function(star, distance) {
   this.orbitalPeriod = 16 + this.orbitalDistance + getRandomInt(0, 320);
 }
 
+Planet.prototype.anchor = function(star) {
+  this.orbitAnchorY = star.y;
+  this.orbitAnchorX = star.x;
+  this.x = star.x + (this.orbitalDistance * Math.cos(this.orbitalAngle));
+  this.y = star.y + (this.orbitalDistance * Math.sin(this.orbitalAngle));
+}
+
 Planet.prototype.advance = function(days) {
   var advancement = (days / this.orbitalPeriod) * Math.PI * 2;
   this.orbitalAngle = (this.orbitalAngle + advancement);

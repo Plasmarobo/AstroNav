@@ -14,7 +14,7 @@ var animationCallback = null;
 
 var sizingParameters = {
   "minViewport" : 530,
-  "infotab" : 270,
+  "infotab" : 220,
 }
 
 function initializeViews() {
@@ -73,10 +73,12 @@ function showSystemView() {
   infotab.style.display = "block";
 }
 
-var resizeThrottle;
+var resizeThrottle = null;
 
 function onResize() {
-  clearTimeout(resizeThrottle);
+  if (resizeThrottle != null) {
+    clearTimeout(resizeThrottle);
+  }
   resizeThrottle = setTimeout(function() {
     globalWidth = document.body.scrollWidth;
     globalHeight = document.body.scrollHeight-1;
