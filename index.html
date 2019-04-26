@@ -17,7 +17,7 @@
     <script src="src/controls.js"></script>
     <script src="src/dialog.js"></script>
     <script src="src/io.js"></script>
-    
+
     <div>
       <div class="control_bar" id="control_bar">
         <div id="system_controls">
@@ -36,6 +36,7 @@
           <div class="grey button" id="load_button">Load</div>
           <div class="grey button" id="export_button">Export</div>
           <div class="grey button" id="import_button">Import</div>
+          <div class="grey button" id="generate_button">Generate</div>
         </div>
       </div>
       <div id="map" class="map">
@@ -46,41 +47,47 @@
         <form name="infotab" id="infotab_data">
           <input id="infotab_title" name="infotab_name" class="infotab_heading" value="Title" />
           <div class="infotab_body" id="infotab_body">
-            
+
             <div class="infotab_section">
               <div class="infotab_subheading">Astronomics</div>
               <div class="infotab_field">
                 <div class="infotab_label">Size Class</div>
-                <input class="infotab_input" name="size" id="infotab_size" />
+                <input class="infotab_input" name="size" id="infotab_size" oninput="updateInfotabTooltips();" />
+                <span class=tooltip id="infotab_size_tooltip"></span>
               </div>
-              
+
               <div class="infotab_field">
                 <div class="infotab_label">Temperature Class</div>
-                <input class="infotab_input" name="temperature" id="infotab_temperature" />
+                <input class="infotab_input" name="temperature" id="infotab_temperature" oninput="updateInfotabTooltips();" />
+                <span class=tooltip id="infotab_temperature_tooltip"></span>
               </div>
-              
+
               <div class="infotab_field">
                 <div class="infotab_label">Atmosphere Class</div>
-                <input class="infotab_input" name="atmopshere" id="infotab_atmosphere" />
+                <input class="infotab_input" name="atmosphere" id="infotab_atmosphere" oninput="updateInfotabTooltips();" />
+                <span class=tooltip id="infotab_atmosphere_tooltip"></span>
               </div>
 
               <div class="infotab_field">
                 <div class="infotab_label">Biosphere Class</div>
-                <input class="infotab_input" name="biospshere" id="infotab_biosphere" />
+                <input class="infotab_input" name="biospshere" id="infotab_biosphere" oninput="updateInfotabTooltips();" />
+                <span class=tooltip id="infotab_biosphere_tooltip"></span>
               </div>
             </div>
 
-            
+
             <div class="infotab_section">
               <div class="infotab_subheading">Demographics</div>
               <div class="infotab_field">
                 <div class="infotab_label">Tech Level</div>
-                <input class="infotab_input" name="tech_level" id="infotab_techlevel" />
+                <input class="infotab_input" name="tech_level" id="infotab_techlevel" oninput="updateInfotabTooltips();" />
+                <span class=tooltip id="infotab_techlevel_tooltip"></span>
               </div>
 
               <div class="infotab_field">
                 <div class="infotab_label">Population</div>
-                <input class="infotab_input" name="population" id="infotab_population" />
+                <input class="infotab_input" name="population" id="infotab_population" oninput="updateInfotabTooltips();" />
+                <span class=tooltip id="infotab_population_tooltip"></span>
               </div>
 
               <div class="infotab_field">
@@ -89,19 +96,21 @@
               </div>
             </div>
 
-            
+
             <div class="infotab_section">
               <div class="infotab_subheading">Misc</div>
               <div class="infotab_field">
                 <div class="infotab_label">System Tags</div>
-                <input class="infotab_input" name="tag_1" id="infotab_tag1" />
+                <input class="infotab_input" name="tag_1" id="infotab_tag1" oninput="updateInfotabTooltips();" />
+                <span class=tooltip id="infotab_tag1_tooltip"></span>
               </div>
-            
+
               <div class="infotab_field">
                 <div class="infotab_label" >></div>
-                <input class="infotab_input" name="tag_2" id="infotab_tag2" />
+                <input class="infotab_input" name="tag_2" id="infotab_tag2" oninput="updateInfotabTooltips();" />
+                <span class=tooltip id="infotab_tag2_tooltip"></span>
               </div>
-            
+
               <div class="infotab_field">
                 <div class="infotab_label">Notes</div>
                 <a href="#" class="infotab_input" id="infotab_edit_notes">Edit</a>
@@ -109,14 +118,16 @@
               </div>
             </div>
 
-          
+              <div class="infotab_button grey" id="infotab_generate">
+                Generate
+              </div>
               <div class="infotab_button green" id="infotab_commit">
                 Update Record
               </div>
               <div class="infotab_button red" id="infotab_discard">
                 Discard Changes
               </div>
-            
+
           </div>
         </form>
       </div>

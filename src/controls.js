@@ -67,6 +67,19 @@ function enableControls() {
       }
     }
   });
+  document.getElementById("infotab_generate").addEventListener("click", function() {
+    var dialog = new Dialog();
+    dialog.addTitle("Generate new Stats?");
+    dialog.addSection();
+    dialog.addYesNo();
+    dialog.onResult = function(success) {
+      if (success) {
+        infotabTarget.generateProperties();
+        loadInfotab(infotabTarget);
+      }
+    };
+    dialog.show()
+  });
   document.getElementById("infotab_commit").addEventListener("click", function() {
     var dialog = new Dialog();
     dialog.addTitle("Really Commit?");
@@ -121,7 +134,7 @@ function enableControls() {
   document.getElementById("export_button").addEventListener("click", function() {
     exportJSON(globalSector);
   });
-  
+
   document.getElementById("import_button").addEventListener("click", function() {
     var dialog = new Dialog();
     dialog.addTitle("Import JSON");
@@ -148,5 +161,18 @@ function enableControls() {
       }
     }
     dialog.show();
-  })
+  });
+  document.getElementById("generate_button").addEventListener("click", function() {
+    var dialog = new Dialog();
+    dialog.addTitle("Generate New Sector");
+    dialog.addSection();
+    dialog.addYesNo();
+    dialog.onResult = function(success) {
+      if (success) {
+        globalSector.generateNew();
+        showSectorView();
+      }
+    };
+    dialog.show();
+  });
 }

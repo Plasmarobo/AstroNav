@@ -1,4 +1,109 @@
 // Planet.js
+var world_tags = [
+  "Abandoned Colony",
+  "Alien Ruins",
+  "Altered Humanity",
+  "Area 51",
+  "Badlands World",
+  "Bubble Cities",
+  "Civil War",
+  "Cold War",
+  "Colonized Population",
+  "Desert World",
+  "Eugenic Cult",
+  "Exchange Consulate",
+  "Feral World",
+  "Flying Cities",
+  "Forbidden Tech",
+  "Freak Geology",
+  "Freak Weather",
+  "Friendly Foe",
+  "Gold Rush",
+  "Hatred",
+  "Heavy Industry",
+  "Heavy Mining",
+  "Hostile Biosphere",
+  "Hostile Space",
+  "Local Speciality",
+  "Local Tech",
+  "Major Spaceyard",
+  "Minimal Conact",
+  "Misandry/Misogyny",
+  "Oceanic World",
+  "Out of Contact",
+  "Outpost World",
+  "Perimeter Agency",
+  "Pilgrimage Site",
+  "Police State",
+  "Preceptor Archieve",
+  "Pretech Cultists",
+  "Primitive Aliens",
+  "Psionics Fear",
+  "Psionics Worship",
+  "Psionics Academy",
+  "Quarantined World",
+  "Radioactive World",
+  "Regional Hegemon",
+  "Restrictive Laws",
+  "Rigid Culture",
+  "Seagoing Cities",
+  "Sealed Menace",
+  "Theocracy",
+  "Tomb World",
+  "Trade Hub",
+  "Tyranny",
+  "Unbraked AI",
+  "Warlords",
+  "Xenophiles",
+  "Xenophobes",
+  "Zombies",
+  "Orbital Colony",
+  "Ultracapitalism",
+  "Cryosleeping Population",
+  "Pirate Stronghold",
+  "Gangsters",
+  "Mercenaries",
+  "Stellar Anomaly",
+  "Cybernetic Worship",
+  "Cybernetic Fear",
+  "Mutants",
+  "Automated Defenses",
+  "The Old Empire",
+  "Dependant Population",
+  "Charlitans",
+  "Master of an Art",
+  "Simulated Reality",
+  "Terraforming Project",
+  "Clones",
+  "Hive Mind",
+  "Computer Virus/Malfunction",
+  "Analog Technology",
+  "Immortals",
+  "Zoological Reserve",
+  "Scavenger Haven",
+  "Penal Colony",
+  "Slavery",
+  "Megacity",
+  "Underground Cities",
+  "Terrorism",
+  "Mecha",
+  "Stellar Debris",
+  "Electromagnetic Interference",
+  "Interstellar Ark",
+  "Ghosts",
+  "Illuminati",
+  "Desperate Populace",
+  "Bandits",
+  "Dungeon",
+  "Laborotory",
+  "Mind Control",
+  "Powerful Artifact",
+  "Natural Resources",
+  "Mysterious Disease",
+  "Declining Population"
+];
+
+
 function Planet() {
   this.sourceImage = new Image();
   this.sourceImage.src = "assets/PixelPlanets.png";
@@ -15,7 +120,7 @@ function Planet() {
   this.toxic = 8;
   this.darkGiant = 9;
   this.balls = 10;
-  this.imageIndex = getRandomInt(0,6); //0-5
+  this.imageIndex = getRandomInt(0,5);
 
   this.size = 0;
   this.temperature = 0;
@@ -36,13 +141,13 @@ function Planet() {
   this.orbitalAngle = 0;
   this.orbitAnchorX = 0;
   this.orbitAnchorY = 0;
-  this.typeIndex = getRandomInt(0, 10);
+  this.typeIndex = getRandomInt(0, 9);
 
   this.name = "";
 }
 
 Planet.prototype.draw = function(ctx) {
-  //var radius = Math.sqrt(Math.pow(this.x - this.orbitAnchorX,2) + Math.pow(this.y - this.orbitAnchorY,2)); 
+  //var radius = Math.sqrt(Math.pow(this.x - this.orbitAnchorX,2) + Math.pow(this.y - this.orbitAnchorY,2));
   ctx.beginPath();
   ctx.arc(this.orbitAnchorX, this.orbitAnchorY, this.orbitalDistance, 0, 2 * Math.PI, false);
   ctx.lineWidth = 1;
@@ -117,7 +222,7 @@ Planet.prototype.update = function(data) {
       this.typeIndex = this.ice;
     }
     else if (this.temperature > 5 || this.temperature < 9) {
-      var roll = getRandomInt(0, 3);
+      var roll = getRandomInt(0, 2);
       if (roll == 0) {
         this.typeIndex = this.earthAlikes;
       } else if (roll == 1) {
@@ -129,7 +234,7 @@ Planet.prototype.update = function(data) {
     else if (this.temperature > 8 && this.temperature < 12) {
       this.typeIndex = this.desert;
     } else {
-      var roll = getRandomInt(0,2);
+      var roll = getRandomInt(0,1);
       if (roll == 0) {
         this.typeIndex = this.inferno;
       } else {
@@ -139,7 +244,7 @@ Planet.prototype.update = function(data) {
   } else if (this.atmosphere == 2 || this.atmosphere > 10) {
     this.typeIndex = this.toxic;
   } else if (this.atmosphere == 10) {
-    var roll = getRandomInt(0,2);
+    var roll = getRandomInt(0,1);
     if (roll == 0) {
       this.typeIndex = this.darkGiant;
     } else {
@@ -148,13 +253,13 @@ Planet.prototype.update = function(data) {
   } else if (this.atmosphere == 4) {
     this.typeIndex = this.rock;
   } else {
-    this.typeIndex = getRandomInt(0, 10);
+    this.typeIndex = getRandomInt(0, 9);
   }
 }
 
 Planet.prototype.loadFrom = function(tree) {
   this.nativeSize = tree["nativeSize"];
- 
+
   this.imageIndex = tree["imageIndex"] //0-5
 
   this.size = tree["size"];
@@ -179,4 +284,156 @@ Planet.prototype.loadFrom = function(tree) {
   this.typeIndex = tree["typeIndex"];
 
   this.name = tree["name"];
+}
+
+Planet.prototype.generateProperties = function() {
+  this.size = getRandomInt(1, 6) + getRandomInt(1, 6);
+  this.atmosphere = getRandomInt(1, 6) + getRandomInt(1, 6);
+  this.temperature = getRandomInt(1, 6) + getRandomInt(1, 6);
+  this.biosphere = getRandomInt(1, 6) + getRandomInt(1, 6);
+  this.population = getRandomInt(1, 6) + getRandomInt(1, 6);
+  this.tech_level = getRandomInt(1, 6) + getRandomInt(1, 6);
+  this.tag_1 = this.tag_2 = getRandomInt(0, world_tags.length);
+  while(this.tag_2 == this.tag_1) {
+    this.tag_2 = getRandomInt(0, world_tags.length);
+  }
+}
+
+function getSizeString(size) {
+  if (typeof size != 'number')
+  {
+    return "?";
+  }
+  if (size < 3) // 2
+  {
+    return "Tiny";
+  } else if (size < 5) { // 3-4
+    return "Small";
+  } else if (size < 8) { // 5-7
+    return "Average";
+  } else if (size < 10) { // 8-9
+    return "Large";
+  } else if (size < 11) { // 10
+    return "Giant";
+  } else if (size < 12) { // 11
+    return "Super Giant";
+  } else {
+    return "Ultra Giant";
+  }
+}
+
+function getAtmosphereString(atmosphere) {
+  if (typeof atmosphere != 'number')
+  {
+    return "?";
+  }
+  if (atmosphere < 3) {
+    return "Corrosive";
+  } else if (atmosphere < 4) {
+    return "Inert Gas";
+  } else if (atmosphere < 5) {
+    return "Airless or thin atmosphere";
+  } else if (atmosphere < 10) {
+    return "Breathable mix";
+  } else if (atmosphere < 11) {
+    return "Thick atmosphere, (use pressure mask)";
+  } else {
+    return "Corrosive and invasive atmosphere";
+  }
+}
+
+function getTemperatureString(temperature) {
+  if (typeof temperature != 'number')
+  {
+    return "?";
+  }
+  if (temperature < 3) {
+    return "Frozen";
+  } else if (temperature < 4) {
+    return "Variable cold-to-temperate";
+  } else if (temperature < 6) {
+    return "Cold";
+  } else if (temperature < 9) {
+    return "Temperate";
+  } else if (temperature < 11) {
+    return "Warm";
+  } else if (temperature < 12) {
+    return "Variable temperate-to-warm";
+  } else {
+    return "Burning";
+  }
+}
+
+function getBiosphereString(biosphere) {
+  if (typeof biosphere != 'number')
+  {
+    return "?";
+  }
+  if (biosphere < 3) {
+    return "Biosphere remnants";
+  } else if (biosphere < 4) {
+    return "Microbial Life";
+  } else if (biosphere < 6) {
+    return "No native biosphere";
+  } else if (biosphere < 9) {
+    return "Human-miscible biosphere";
+  } else if (biosphere < 11) {
+    return "Immiscible biosphere";
+  } else if (biosphere < 12) {
+    return "Hybrid biosphere";
+  } else {
+    return "Engineered biosphere";
+  }
+}
+
+function getPopulationString(population) {
+  if (typeof population != 'number')
+  {
+    return "?";
+  }
+  if (population < 3) {
+    return "Failed colony";
+  } else if (population < 4) {
+    return "Outpost";
+  } else if (population < 6) {
+    return "Tens of thousands";
+  } else if (population < 9) {
+    return "Hundreds of thousands";
+  } else if (population < 11) {
+    return "Millions";
+  } else if (population < 12) {
+    return "Billions";
+  } else {
+    return "Alien Civilization";
+  }
+}
+
+function getTechLevelString(tech_level) {
+  if (typeof tech_level != 'number')
+  {
+    return "?";
+  }
+  if (tech_level < 3) {
+    return "TL0 - Stone-age technology";
+  } else if (tech_level < 4) {
+    return "TL1 - Medieval technology";
+  } else if (tech_level < 5) {
+    return "TL2 - Nineteenth-century technology";
+  } else if (tech_level < 7) {
+    return "TL3 - Twentieth-century technology";
+  } else if (tech_level < 11) {
+    return "TL4 - Baseline postech";
+  } else if (tech_level < 12) {
+    return "TL4+ - Speciality or surviving pretech";
+  } else {
+    return "TL5 - Pretech";
+  }
+}
+
+function getTagString(tag) {
+  if (typeof tag != 'number' || tag >= world_tags.length)
+  {
+    return "?";
+  }
+  return world_tags[tag];
 }

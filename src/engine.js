@@ -3,7 +3,7 @@ var engineLastStep = null;
 var resizing = false;
 
 function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
+  return Math.floor(Math.random() * (max-min)) + min;
 }
 
 function getRandom(min, max) {
@@ -12,7 +12,7 @@ function getRandom(min, max) {
 
 function initializeEngine() {
   engineLastStep = new Date().getTime();
-  engineStep();  
+  engineStep();
 }
 
 function engineStep() {

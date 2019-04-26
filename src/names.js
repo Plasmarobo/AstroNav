@@ -9,7 +9,7 @@ function NameGenerator(count) {
   }
 
   var charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-  var star_names = [ 
+  var star_names = [
     "Cassius", "Crucis", "Leonis", "Tauri", "Corvus",
     "Cepheus", "Draco", "Beta-Cyria", "Omega-Tau", "Gemini",
     "Quaran", "Alpha Ophicus", "Asterope", "Asellus", "Bunda",
@@ -18,43 +18,79 @@ function NameGenerator(count) {
     "Paradise", "Vega", "Yed Prior", "Thabit", "Tejat", "Zosma",
     "Subra", "Ebonheart", "Fortune", "Ras Algethi", "Dragon",
     "Bovo", "Lyra", "Leverna", "Nintoku", "Valissian", "Subania", "Majora",
-    "Geryon", "Drozol", "Dayem", "Elcore", "Qecus", "Kelchek"
+    "Geryon", "Drozol", "Dayem", "Elcore", "Qecus", "Kelchek",
+    "Sol-2", "Termina", "Veyron", "Maled", "Ur", "Girel", "Aveg",
+    "Apex", "Jauza", "Messier", "Plato", "Gallelo", "Scorpii",
+    "Rival", "Carinae", "Menelaus", "Navaji", "Agastya", "Socretes",
+    "Yi", "Pavonis", "Ursae", "Draconis", "Ophiuchi", "Serpentis",
+    "Phoenicis", "Leporis", "Aurigae", "Sadr", "Lyrae", "Arietis",
+    "Crucis", "Pegasi", "Eridaani", "Zosma", "Mediae", "Unukalhai",
+    "Vindemiatrix", "Kornephoros", "Lesath", "Mebsuta", "Naos",
+    "Nekkar", "Phact", "Pleione", "Einstein", "heisenberg", "Dirac",
+    "Schrodinger", "Fermi", "Ampiere"
   ];
 
   var xeno_stars = [
     "Co'eleth", "Ta'nazareth", "Gemel", "Armarath'ta", "Sep'talath", "Ugrada",
     "Elle'path", "Metron", "L'teega", "Rotogath", "Thraxunza", "Habareth",
     "U'mege", "O'be'talath", "Jep'negata", "Qa'tebe", "Zu'rer", "Pe'mereda",
-    "Kia'peren", "O'be'ungre", "Xe'na'ra", "Fa'isara", "Wuvega", "Tal'tel'loth"
+    "Kia'peren", "O'be'ungre", "Xe'na'ra", "Fa'isara", "Wuvega", "Tal'tel'loth",
+    "Uubuu", "e-X-e", "NT-1E", "0x08FA"
   ];
 
   this.planet_names = [
     "Miranda", "Nightfall", "Luminae", "Xerxes", "Nova", "Pavonon", "Virtue",
     "Journey's-End", "Fronteir", "Prosperity", "Naraka", "Biascay", "Attis",
-    "Aether", "Bellataine", "Corudeen", "Heptimus", "Orchid", "Softwind", 
+    "Aether", "Bellataine", "Corudeen", "Heptimus", "Orchid", "Softwind",
     "Lambda", "Wellington", "Everfall", "Edison", "Daylight", "Illius",
     "Kali", "Devestation", "Ravgana", "Quipid", "Tellius", "Yelis", "Oran",
     "Daedelus", "Zephyr", "Silvertone", "Juno", "Minerette", "Bastion",
     "Underwald", "Riechstag", "Enki", "Jakuta", "Elista", "Neverlave",
     "Pyritan", "Ventara", "Xebes", "Othello", "Julius", "Korb", "Bellborne",
     "Revenant", "Quetolal", "tantalak", "Apollo", "Ares", "Numeria", "Mathaka",
-    "Tuva", "Wisper", "Inanna", "Athena", "Roya Vosar", "Omia", "Aizong", 
+    "Tuva", "Wisper", "Inanna", "Athena", "Roya Vosar", "Omia", "Aizong",
     "Thanatos", "Horikawa", "Sahana", "Scargill", "Coyopa", "Yovido",
     "Blerreon", "Zorada", "Eta Hades", "Taizu", "Hawking", "Maxia", "Orellius",
     "Orewellian", "Roanoke", "Nimiset", "Myar", "Dorcus", "Valissian", "Regan's Rest",
-    "Never-look-back", "Formenos", "Atheni", "Faf", "Monarch", "Holiday", 
+    "Never-look-back", "Formenos", "Atheni", "Faf", "Monarch", "Holiday",
     "Belegost", "Ghazan", "Brakir", "Geryon", "Psi Zulu", "Malina", "Kaladria",
     "Ankou", "Krishna", "Vixif", "Amasis", "Consileen", "Karen", "Keiko",
     "Huronguar", "Carnavon", "Fideon", "Robor", "Iota Ermina", "Aleggro",
     "Cascade", "Harmony", "Leviathan", "Gravity", "J'Sepp Scoyfol", "Nemarch",
     "Portalis", "Arcaius", "New Patagonia", "Albea", "Orh'neon", "Zerenita",
-    "Hera", "Honshu", "Arkanna", "Arawath", "Sarapis", "Unica", "Proxima"
+    "Hera", "Honshu", "Arkanna", "Arawath", "Sarapis", "Unica", "Proxima",
+    "Amor", "Demen", "Eros", "Gaspra", "Ada", "Dactyl", "Mathilde", "Kalliope",
+    "Eguenia", "Farsight", "Lycaon", "Flammarion", "Rhodian", "Orchomenus",
+    "Paramour", "Minos", "Pasiphae", "Oberon", "Asopus", "Promise",
+    "Kadmos", "Silence", "Necessity", "Adrastea", "Pollok", "Inachus",
+    "Yellowstone", "Acadia", "Bigsky", "Lakelend", "Orkid", "Grace",
+    "Posession", "Gift", "Summerhold", "Terrianhome", "Virtue", "Ymir",
+    "Telesto", "Paaliaq", "Tarvos", "Ijiraq", "Yormungander", "Materia",
+    "Dirtball", "Fae", "Erriapus", "Pallene", "Polydeuces", "Umbriel",
+    "Bianca", "Desmond", "Cotta", "Shakespere", "Vonnegut", "Asimov",
+    "Bradbury", "Clarke", "Wells", "Herbert", "Heinlein", "Orwell", "Verne",
+    "Le Guin", "Atwood", "Huxley", "Niven", "Adams", "Pratchett",
+    "Gibson", "Gaiman", "Shelly", "Stephenson", "Monarch", "Imperia",
+    "Thales", "Aurelius", "Voltare", "Confucius", "Zen", "Zhi", "Jinping",
+    "Rayleigh", "Curie", "Waals", "Dalen", "Bohr", "Discression", "Bounty",
+    "Vault", "Combe", "Olo"
+  ];
+
+  this.other_names = [
+  ];
+
+  this.other_types = [
+    "station",
+    "derelect",
+    "asteroid",
+    "gate",
+
   ];
 
   this.roman_numbers = [ "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII" ];
 
   this.greek_numbers = [ "Alpha", "Beta", "Gamma", "Delta", "Epsilon", "Zeta", "Theta", "Lambda", "Omicron", "Sigma", "Tau", "Omega" ];
- 
+
   this.numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "8", "9", "10", "11", "12"];
 
   this.ranked = 0;
@@ -124,6 +160,12 @@ NameGenerator.prototype.getPlanetNames = function(star) {
   }
   return planets;
 }
+
+NameGenerator.prototype.getStellarObjectName = function(star) {
+
+}
+
+NameGenerator.prototype
 
 NameGenerator.prototype.loadFrom = function(tree) {
 

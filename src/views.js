@@ -20,7 +20,7 @@ var sizingParameters = {
 function initializeViews() {
   systemcanvas = document.getElementById("SystemCanvas");
   systemcontext = systemcanvas.getContext('2d');
-  
+
   sectorcanvas = document.getElementById("SectorCanvas");
   sectorcontext = sectorcanvas.getContext('2d');
 
@@ -90,7 +90,7 @@ function onResize() {
     height -= sizingParameters["infotab"];
     if (height < sizingParameters["minViewport"]) {
       height = sizingParameters["minViewport"];
-    } 
+    }
     if (width < sizingParameters["minViewport"]) {
       width = sizingParameters["minViewport"];
     }
@@ -98,7 +98,7 @@ function onResize() {
     setViewport(width, height);
 
     document.getElementById("infotab").style.height = sizingParameters["infotab"];
-    
+
     globalSector.draw();
     if (currentSystem != null) {
       currentSystem.draw(systemcontext);
@@ -121,16 +121,58 @@ function setViewport(width, height) {
   document.getElementById("map").style.width = width;
 }
 
+function updateInfotabTooltips(targe) {
+  document.getElementById("infotab_size_tooltip").innerHTML = getSizeString(parseInt(document.getElementById("infotab_size").value));
+  document.getElementById("infotab_temperature_tooltip").innerHTML = getTemperatureString(parseInt(document.getElementById("infotab_temperature").value));
+  document.getElementById("infotab_atmosphere_tooltip").innerHTML = getAtmosphereString(parseInt(document.getElementById("infotab_atmosphere").value));
+  document.getElementById("infotab_biosphere_tooltip").innerHTML = getBiosphereString(parseInt(document.getElementById("infotab_biosphere").value));
+  document.getElementById("infotab_techlevel_tooltip").innerHTML = getTechLevelString(parseInt(document.getElementById("infotab_techlevel").value));
+  document.getElementById("infotab_population_tooltip").innerHTML = getPopulationString(parseInt(document.getElementById("infotab_population").value));
+  document.getElementById("infotab_tag1_tooltip").innerHTML = getTagString(parseInt(document.getElementById("infotab_tag1").value));
+  document.getElementById("infotab_tag2_tooltip").innerHTML = getTagString(parseInt(document.getElementById("infotab_tag2").value));
+}
+
 function loadInfotab(target) {
   infotabTarget = target;
   document.getElementById("infotab_title").value = target.hasOwnProperty("name") ? target.name : "N/A";
-  document.getElementById("infotab_size").value = target.hasOwnProperty("size") ? target.size : "N/A"
-  document.getElementById("infotab_temperature").value = target.hasOwnProperty("temperature") ? target.temperature : "N/A";
-  document.getElementById("infotab_atmosphere").value = target.hasOwnProperty("atmosphere") ? target.atmosphere : "N/A";
-  document.getElementById("infotab_biosphere").value = target.hasOwnProperty("biosphere") ? target.biosphere : "N/A";
-  document.getElementById("infotab_techlevel").value = target.hasOwnProperty("tech_level") ? target.tech_level : "N/A";
-  document.getElementById("infotab_population").value = target.hasOwnProperty("population") ? target.population : "N/A";
-   document.getElementById("infotab_factions").value = "";
+
+  if (target.hasOwnProperty("size")) {
+    document.getElementById("infotab_size").value =  target.size;
+  } else {
+    document.getElementById("infotab_size").value = "N/A";
+  }
+
+  if (target.hasOwnProperty("temperature")) {
+    document.getElementById("infotab_temperature").value = target.temperature;
+  } else {
+    document.getElementById("infotab_temperature").value = "N/A";
+  }
+
+  if (target.hasOwnProperty("atmosphere")) {
+    document.getElementById("infotab_atmosphere").value = target.atmosphere;
+  } else {
+    document.getElementById("infotab_atmosphere").value = "N/A";
+  }
+
+  if (target.hasOwnProperty("biosphere")) {
+    document.getElementById("infotab_biosphere").value = target.biosphere;
+  } else {
+    document.getElementById("infotab_biosphere").value = "N/A";
+  }
+
+  if (target.hasOwnProperty("tech_level")) {
+    document.getElementById("infotab_techlevel").value = target.tech_level;
+  } else {
+    document.getElementById("infotab_techlevel").value = "N/A";
+  }
+
+  if (target.hasOwnProperty("population")) {
+    document.getElementById("infotab_population").value = target.population;
+  } else {
+    document.getElementById("infotab_population").value = "N/A";
+  }
+
+  document.getElementById("infotab_factions").value = "";
   if (target.hasOwnProperty("factions")) {
     for(var faction in this.factions) {
       document.getElementById("infotab_factions").value += faction + ",";
@@ -138,9 +180,20 @@ function loadInfotab(target) {
   } else {
     document.getElementById("infotab_factions").value = "N/A";
   }
-  document.getElementById("infotab_tag1").value = target.hasOwnProperty("tag_1") ? target.tag_1 : "N/A";
-  document.getElementById("infotab_tag2").value = target.hasOwnProperty("tag_2") ? target.tag_2 : "N/A";
+
+  if (target.hasOwnProperty("tag_1")) {
+    document.getElementById("infotab_tag1").value = target.tag_1;
+  } else {
+    document.getElementById("infotab_tag1").value = "N/A";
+  }
+
+  if (target.hasOwnProperty("tag_2")) {
+    document.getElementById("infotab_tag2").value = target.tag_2;
+  } else {
+    document.getElementById("infotab_tag2").value = "N/A";
+  }
   document.getElementById("infotab_notes").value = target.hasOwnProperty("notes") ? target.notes : "N/A";
+  updateInfotabTooltips();
 }
 
 function saveInfotab() {

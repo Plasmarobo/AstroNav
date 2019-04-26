@@ -116,10 +116,10 @@ StellarSystem.prototype.click = function(x, y) {
 StellarSystem.prototype.loadFrom = function(tree) {
   this.name = tree["name"];
   this.planets = [];
-  
+
   this.star.loadFrom(tree["star"]);
   this.star.anchor(systemcontext);
-  
+
   for (var planet in tree["planets"]) {
     var item = new Planet();
     item.loadFrom(tree["planets"][planet]);
@@ -136,4 +136,19 @@ StellarSystem.prototype.loadFrom = function(tree) {
   this.starSize = 256;
   this.x = tree["x"];
   this.y = tree["y"];
+}
+
+StellarSystem.prototype.generateNew = function() {
+  // Implement a normal distribution
+  var object_counts = 1 + Math.random(0, 11);
+  while(object_counts > 0)
+  {
+    if (Math.random(0,3) == 3)
+    {
+      this.newOther();
+    } else {
+      this.newPlanet();
+    }
+    object_counts -= 1;
+  }
 }

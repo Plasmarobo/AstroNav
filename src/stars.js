@@ -4,7 +4,7 @@ function Star() {
   this.size = 0;
   this.image = new Image();
   this.image.src = "assets/star.png";
-  this.scale = 1;
+  this.scale = 0.8;
   this.temperature = 20;
 }
 
@@ -15,7 +15,7 @@ Star.prototype.anchor = function(ctx) {
 
 Star.prototype.draw = function(ctx) {
   this.anchor(ctx);
-  ctx.drawImage(this.image, this.x - (this.image.width/2), this.y - (this.image.height/2)); 
+  ctx.drawImage(this.image, this.x - (this.image.width/2), this.y - (this.image.height/2));
 }
 
 Star.prototype.click = function(x, y) {

@@ -6,7 +6,7 @@ function HexagonGrid(canvasId, radius, clickCallback, originX, originY) {
     this.clickCallback = clickCallback;
     this.fillColor = "rgba(52,152, 219,0.1)";
     this.lineColor = "rgba(52,152, 219,0.3)";
-    this.textColor = "rgba(231, 76,60, 1)"; 
+    this.textColor = "rgba(231, 76,60, 1)";
 
     this.height = Math.sqrt(3) * radius;
     this.width = 2 * radius;
@@ -17,9 +17,17 @@ function HexagonGrid(canvasId, radius, clickCallback, originX, originY) {
 
     this.canvasOriginX = 0;
     this.canvasOriginY = 0;
-    
+
     this.canvas.addEventListener("mousedown", this.clickEvent.bind(this), false);
 };
+
+HexagonGrid.prototype.updateRadius = function(radius)
+{
+    this.radius = radius;
+    this.height = Math.sqrt(3) * radius;
+    this.width = 2 * radius;
+    this.side = (3 / 2) * radius;
+}
 
 HexagonGrid.prototype.updateOffset = function(originX, originY) {
     this.canvasOriginX = originX;
@@ -69,11 +77,16 @@ HexagonGrid.prototype.drawHexAtColRow = function(column, row, color) {
     this.drawHex(drawx, drawy, color, "");
 };
 
-HexagonGrid.prototype.drawAt = function(col, row, image) {
+HexagonGrid.prototype.drawAt = function(col, row, image, dimensionLimit) {
+     if (typeof dimensionLimit == 'undefined')
+    {
+        dimensionLimit = image.width;
+    }
+
     var drawy = col % 2 == 0 ? (row * this.height) + this.canvasOriginY : (row * this.height) + this.canvasOriginY + (this.height / 2);
     var drawx = (col * this.side) + this.canvasOriginX;
 
-    this.context.drawImage(image, drawx - (image.width/2) + this.width/2, drawy - (image.height/2) + this.height/2);
+    this.context.drawImage(image, drawx - (dimensionLimit/2) + this.width/2, drawy - (dimensionLimit/2) + this.height/2, dimensionLimit, dimensionLimit);
 }
 
 HexagonGrid.prototype.drawHex = function(x0, y0, fillColor, debugText) {
@@ -110,7 +123,7 @@ HexagonGrid.prototype.getRelativeCanvasOffset = function() {
             x += layoutElement.offsetLeft;
             y += layoutElement.offsetTop;
         } while (layoutElement = layoutElement.offsetParent);
-        
+
         return { x: x, y: y };
     }
 }
@@ -131,11 +144,11 @@ HexagonGrid.prototype.getSelectedTile = function(mouseX, mouseY) {
             : Math.floor(((mouseY + (this.height * 0.5)) / this.height)) - 1);
 
 
-    //Test if on left side of frame            
+    //Test if on left side of frame
     if (mouseX > (column * this.side) && mouseX < (column * this.side) + this.width - this.side) {
 
 
-        //Now test which of the two triangles we are in 
+        //Now test which of the two triangles we are in
         //Top left triangle points
         var p1 = new Object();
         p1.x = column * this.side;
@@ -213,5 +226,5 @@ HexagonGrid.prototype.clickEvent = function (e) {
     var tile = this.getSelectedTile(localX, localY);
     if (this.clickCallback) {
         this.clickCallback(tile);
-    } 
+    }
 };

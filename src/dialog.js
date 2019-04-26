@@ -8,6 +8,14 @@ function Dialog(id) {
     this.id = "dialog";
   else
     this.id = id;
+
+  this.onClose = function(event) {
+    if (event.key == "Escape") {
+      this.close();
+    }
+    document.removeEventListener('', this.onClose, false);
+  }.bind(this);
+  document.addEventListener('keydown', this.onClose);
 }
 
 Dialog.prototype.addTitle = function(title) {
