@@ -164,6 +164,16 @@ Planet.prototype.draw = function(ctx) {
                 this.y - 16,
                 32,
                 32);
+
+  ctx.font = 'Orbitron, 18pt sans-serif';
+  var metrics = {};
+  metrics.width = 5 * this.name.length;
+  metrics.height = 9;
+
+  ctx.fillStyle = 'rgba(128, 128, 128, 0.5)';
+  ctx.fillRect(this.x - (metrics.width/2) - 2, this.y + 18, metrics.width + 4, metrics.height + 4);
+  ctx.fillStyle = 'rgba(255, 255, 255, 1.0)';
+  ctx.fillText(this.name, this.x - (metrics.width/2), this.y + 20 + metrics.height);
 }
 
 Planet.prototype.place = function(star, distance) {

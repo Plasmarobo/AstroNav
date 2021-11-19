@@ -83,6 +83,7 @@ StellarSector.prototype.draw = function() {
     system = this.systems[system];
     if (system.name != "Deep Space") {
       this.systemGrid.drawAt(system.x, system.y, this.starIcon, dimensionLimit);
+      this.systemGrid.labelAt(system.x, system.y, 0, this.starIcon.height, system.name, dimensionLimit);
     }
   }
 

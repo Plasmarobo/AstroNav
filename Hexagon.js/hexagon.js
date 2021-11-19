@@ -78,7 +78,7 @@ HexagonGrid.prototype.drawHexAtColRow = function(column, row, color) {
 };
 
 HexagonGrid.prototype.drawAt = function(col, row, image, dimensionLimit) {
-     if (typeof dimensionLimit == 'undefined')
+    if (typeof dimensionLimit == 'undefined')
     {
         dimensionLimit = image.width;
     }
@@ -87,6 +87,26 @@ HexagonGrid.prototype.drawAt = function(col, row, image, dimensionLimit) {
     var drawx = (col * this.side) + this.canvasOriginX;
 
     this.context.drawImage(image, drawx - (dimensionLimit/2) + this.width/2, drawy - (dimensionLimit/2) + this.height/2, dimensionLimit, dimensionLimit);
+}
+
+HexagonGrid.prototype.labelAt = function(col, row, offset_x, offset_y, text, dimensionLimit) {
+    this.context.font = 'Orbitron, 18pt sans-serif';
+    // Doesn't work in brave!
+    //var metrics = this.context.measureText(text);
+    var metrics = {};
+    metrics.width = 5 * text.length;
+    metrics.height = 9;
+    if (typeof dimensionLimit == 'undefined')
+    {
+        dimensionLimit = metrics.width;
+    }
+    var textPad = 1;
+    var drawy = col % 2 == 0 ? (row * this.height) + this.canvasOriginY : (row * this.height) + this.canvasOriginY + (this.height / 2) + offset_y;
+    var drawx = (col * this.side) + this.canvasOriginX + offset_x;
+    this.context.fillStyle = 'rgba(128, 128, 128, 0.5)';
+    this.context.fillRect(drawx - (dimensionLimit/2) + this.width/2, drawy - (dimensionLimit/2) + this.height/2 - metrics.height, metrics.width + (2 * textPad), metrics.height + (2 * textPad));
+    this.context.fillStyle = 'rgba(255, 255, 255, 1.0)';
+    this.context.fillText(text, drawx - (dimensionLimit/2) + this.width/2, drawy - (dimensionLimit/2) + this.height/2);
 }
 
 HexagonGrid.prototype.drawHex = function(x0, y0, fillColor, debugText) {
