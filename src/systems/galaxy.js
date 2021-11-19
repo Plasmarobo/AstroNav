@@ -1,0 +1,1 @@
+// A galaxy map model

@@ -46,6 +46,13 @@ body {
   cursor: pointer;
 }
 
+.button-label {
+  margin: auto;
+  width: 80%;
+  text-align: center;
+  padding: 2px;
+}
+
 #dialog {
   position: fixed;
   left:50%;
