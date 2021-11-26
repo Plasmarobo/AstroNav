@@ -4,7 +4,7 @@ var currentSystem;
 
 function StellarSector(canvasId) {
   this.starIcon = new Image();
-  this.starIcon.src = "assets/system.png";
+  this.starIcon.src = "assets/star00icon.png";
 
   this.sectorWidth = 11;
   this.sectorHeight = 10;
@@ -39,7 +39,6 @@ function StellarSector(canvasId) {
 
   this.year = 3200;
   this.day = 0;
-
 }
 
 StellarSector.prototype.hasSystem = function(x, y) {
@@ -79,14 +78,14 @@ StellarSector.prototype.draw = function() {
   var top_padding = (sectorcanvas.height/2) - (this.systemGrid.getHeight(this.sectorHeight)/2);
   this.systemGrid.updateOffset(left_padding, top_padding);
   context.drawImage(this.background, backgroundX,backgroundY);
+
   for(var system in this.systems) {
     system = this.systems[system];
     if (system.name != "Deep Space") {
-      this.systemGrid.drawAt(system.x, system.y, this.starIcon, dimensionLimit);
+      this.systemGrid.drawAt(system.x, system.y, system.getIcon(), dimensionLimit);
       this.systemGrid.labelAt(system.x, system.y, 0, this.starIcon.height, system.name, dimensionLimit);
     }
   }
-
 
   this.systemGrid.drawHexGrid(this.sectorHeight,
                               this.sectorWidth,
@@ -140,7 +139,6 @@ StellarSector.prototype.loadFrom = function(json) {
   this.day = tree["day"];
 
   this.systemGrid = new HexagonGrid(this.canvasId, this.cellSize, function(tile) {
-    //alert("Clicked on " + tile.column + ", " + tile.row);
     if (this.sectorcanvas.display != "none")
     {
       currentSystem = sector.getSystem(tile.column, tile.row);

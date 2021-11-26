@@ -146,6 +146,7 @@ HexagonGrid.prototype.getRelativeCanvasOffset = function() {
 
         return { x: x, y: y };
     }
+    return { x: 0, y: 0 };
 }
 
 //Uses a grid overlay algorithm to determine hexagon location

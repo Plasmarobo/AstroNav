@@ -24,6 +24,29 @@ StellarSystem.prototype.draw = function(ctx) {
   }
 }
 
+StellarSystem.prototype.getIcon = function() {
+  //Draw the star first, assume a background is drawn
+  var memoryCanvas = document.createElement("canvas");
+  var memoryCtx = memoryCanvas.getContext('2d');
+  memoryCtx.canvas.width = 32;
+  memoryCtx.canvas.height = 32;
+
+  memoryCtx.clearRect(0, 0, memoryCtx.canvas.width, memoryCtx.canvas.height);
+  if (this.name != "Deep Space") {
+    this.star.drawIcon(memoryCtx);
+  }
+  for(var drawable in this.others) {
+    drawable = this.others[drawable];
+    drawable.drawIcon(memoryCtx);
+  }
+  for(var drawable in this.planets) {
+    drawable = this.planets[drawable];
+    drawable.drawIcon(memoryCtx);
+  }
+
+  return memoryCtx.canvas;
+}
+
 StellarSystem.prototype.advance = function(days) {
   // If there is any inter-planetary sim to, do it
   for(var advancable in this.others) {

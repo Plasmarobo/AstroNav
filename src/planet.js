@@ -176,6 +176,26 @@ Planet.prototype.draw = function(ctx) {
   ctx.fillText(this.name, this.x - (metrics.width/2), this.y + 20 + metrics.height);
 }
 
+Planet.prototype.drawIcon = function(ctx)
+{
+  ctx.beginPath();
+  ctx.arc(this.orbitAnchorX, this.orbitAnchorY, 2, 0, 2 * Math.PI, false);
+  ctx.lineWidth = 16;
+  ctx.strokeStyle = "rgba(128, 128,128, 0.3)";
+  ctx.stroke();
+  ctx.closePath();
+
+  ctx.drawImage(this.sourceImage,
+                this.imageIndex * 32,
+                this.typeIndex * 32,
+                32,
+                32,
+                this.x - 16,
+                this.y - 16,
+                32,
+                32);
+}
+
 Planet.prototype.place = function(star, distance) {
   // Randomize starting angle
   this.orbitalAngle = getRandom(0, Math.PI*2);

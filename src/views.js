@@ -73,6 +73,17 @@ function showSystemView() {
   infotab.style.display = "block";
 }
 
+function dumpCanvas(canvas, x, y)
+{
+  var displayDiv = document.createElement("div");
+  displayDiv.className = "DebugWindow";
+  displayDiv.appendChild(canvas);
+  displayDiv.style.position = "absolute";
+  displayDiv.style.left = x+'px';
+  displayDiv.style.top = y+'px';
+  document.getElementById("body").appendChild(displayDiv);
+}
+
 var resizeThrottle = null;
 
 function onResize() {
